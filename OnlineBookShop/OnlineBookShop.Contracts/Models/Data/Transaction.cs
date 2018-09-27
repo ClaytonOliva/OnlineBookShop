@@ -7,12 +7,12 @@ using System.Threading.Tasks;
 namespace OnlineBookShop.Contracts.Models.Data
 {
     /// <summary>
-    /// Data container for a Purchase.
+    /// Data container for a Transaction.
     /// </summary>
-    public class Purchase
+    public class Transaction
     {
         /// <summary>
-        /// Primary identifier of the Purchase.
+        /// Primary identifier of the Transaction.
         /// </summary>
         public int Id { get; set; }
 

@@ -10,7 +10,7 @@ namespace OnlineBookShop.Data.Interfaces
     public interface ICustomerRepository : IRepository
     {
         Customer AddCustomer(Customer details);
-        Customer DeleteCustomer(int id);
+        bool DeleteCustomer(int id);
         Customer GetCustomer(int id);
         Customer UpdateCustomer(Customer details);
     }

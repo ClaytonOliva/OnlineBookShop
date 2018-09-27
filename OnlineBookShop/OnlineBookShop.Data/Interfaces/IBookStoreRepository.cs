@@ -10,7 +10,8 @@ namespace OnlineBookShop.Data.Interfaces
     public interface IBookStoreRepository : IRepository
     {
         IEnumerable<Book> GetBooks();
-        Purchase PurchaseBook();
-        IEnumerable<Purchase> GetPurchaseHistory();
+        Transaction PurchaseBook(Transaction details);
+        IEnumerable<Transaction> GetPurchaseHistory(int customerId);
+        Transaction GetTransaction(int transactionId);
     }
 }

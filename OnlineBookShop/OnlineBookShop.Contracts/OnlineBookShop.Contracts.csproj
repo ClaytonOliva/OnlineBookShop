@@ -45,7 +45,7 @@
   <ItemGroup>
     <Compile Include="Models\Data\Book.cs" />
     <Compile Include="Models\Data\Customer.cs" />
-    <Compile Include="Models\Data\Purchase.cs" />
+    <Compile Include="Models\Data\Transaction.cs" />
     <Compile Include="Models\Presentation\Book.cs" />
     <Compile Include="Models\Presentation\Customer.cs" />
     <Compile Include="Models\Presentation\Store.cs" />
