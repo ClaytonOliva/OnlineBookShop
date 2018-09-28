@@ -6,15 +6,15 @@ using System.Threading.Tasks;
 
 namespace OnlineBookShop.Data
 {
-    public class ConnectionStringHelper
+    public static class ConnectionStringHelper
     {
-        public static string GetConnectionString(string connectionStringName)
+        public static string GetConnectionString()
         {
             var setting = 
-                System.Configuration.ConfigurationManager.ConnectionStrings[connectionStringName];
+                System.Configuration.ConfigurationManager.ConnectionStrings["MySqlDb"];
 
             if (setting == null)
-                throw new Exception(String.Format("Error while retrieving ConnectiongString {0}, this conection String was not found in the .config file", connectionStringName));
+                throw new Exception("Error while retrieving ConnectiongString. The conection String was not found in the .config file");
 
             return setting.ConnectionString;
         }

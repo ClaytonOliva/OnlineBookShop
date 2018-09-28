@@ -33,11 +33,11 @@ namespace OnlineBookShop.Service.Services
             }
         }
 
-        public Response<IEnumerable<Transaction>> GetPurchaseHistory()
+        public Response<IEnumerable<Transaction>> GetPurchaseHistory(int customerId)
         {
             try
             {
-                _bookStoreRepo.GetPurchaseHistory();
+                _bookStoreRepo.GetPurchaseHistory(customerId);
                 return new Response<IEnumerable<Transaction>>();
             }
             catch (Exception e)
@@ -47,11 +47,11 @@ namespace OnlineBookShop.Service.Services
             }
         }
 
-        public Response<Transaction> PurchaseBook()
+        public Response<Transaction> PurchaseBook(Transaction details)
         {
             try
             {
-                _bookStoreRepo.PurchaseBook();
+                _bookStoreRepo.PurchaseBook(new Contracts.Models.Data.Transaction());
                 return new Response<Transaction>();
             }
             catch (Exception e)

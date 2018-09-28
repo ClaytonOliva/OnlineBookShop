@@ -27,18 +27,6 @@ namespace OnlineBookShop.DependencyResolution {
                 c.AddRegistry<DefaultRegistry>();
             });
             return container;
-
-
-            //Container container = new Container();
-            //container.Configure(c =>
-            //{
-            //    c.AddRegistry<DefaultRegistry>();
-            //    c.AddRegistry<Service.DependencyResolution.ServiceRegistry>();
-            //    c.AddRegistry<Data.DependencyResolution.DataRegistry>();
-            //    c.For<System.Data.IDbConnection>().Use<System.Data.SqlClient.SqlConnection>().Ctor<string>().Is("YOUR_CONNECTION_STRING");
-            //});
-           
-            //return new Container(c => c.AddRegistry<DefaultRegistry>());
         }
     }
 }

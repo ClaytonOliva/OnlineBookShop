@@ -11,17 +11,19 @@ namespace OnlineBookShop.Controllers
     public class ValuesController : ApiController
     {
         private readonly ICustomerService _customerService;
+        private readonly IBookStoreService _bookService;
 
-        
 
-        public ValuesController(ICustomerService service)
+        public ValuesController(ICustomerService customerService, IBookStoreService bookService)
         {
-            _customerService = service;
+            _customerService = customerService;
+            _bookService = bookService;
         }
 
         // GET api/values
         public IEnumerable<string> Get()
         {
+            _bookService.GetBooks();
             return new string[] { "value1", "value2" };
         }
 

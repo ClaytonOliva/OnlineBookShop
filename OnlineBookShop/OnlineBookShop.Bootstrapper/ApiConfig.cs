@@ -13,13 +13,13 @@ namespace OnlineBookShop.Bootstrapper
     {
         public static Container ConfigureBindings()
         {
-            Container container = new Container();
+            var container = new Container();
 
             container.Configure(c =>
             {
+                c.For<System.Data.IDbConnection>().Use<MySql.Data.MySqlClient.MySqlConnection>().Ctor<string>().Is("server=localhost;user=sa;database=onlineshop;port=3306;password=Passw0rd");
                 c.AddRegistry<ServiceRegistry>();
                 c.AddRegistry<DataRegistry>();
-                c.For<System.Data.IDbConnection>().Use<System.Data.SqlClient.SqlConnection>().Ctor<string>().Is("YOUR_CONNECTION_STRING");
             });
 
             return container;

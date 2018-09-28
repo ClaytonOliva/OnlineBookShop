@@ -11,7 +11,7 @@ namespace OnlineBookShop.Service.Interfaces
     public interface IBookStoreService
     {
         Response<IEnumerable<Book>> GetBooks();
-        Response<Transaction> PurchaseBook();
-        Response<IEnumerable<Transaction>> GetPurchaseHistory();
+        Response<Transaction> PurchaseBook(Transaction transaction);
+        Response<IEnumerable<Transaction>> GetPurchaseHistory(int customerId);
     }
 }

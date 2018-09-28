@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Dapper;
+using MySql.Data.MySqlClient;
 using OnlineBookShop.Contracts.Models.Data;
 using OnlineBookShop.Data.Interfaces;
 
@@ -12,6 +13,7 @@ namespace OnlineBookShop.Data.Repos
 {
     public class BookStoreRepository : BaseRepository, IBookStoreRepository
     {
+       
         /// <summary>
         /// Gets all books from store.
         /// </summary>
@@ -19,9 +21,9 @@ namespace OnlineBookShop.Data.Repos
         public IEnumerable<Book> GetBooks()
         {
             var sqlCustomerSelect =
-                "SELECT Id, Name, Surname, Email, Address FROM Customers WHERE Id = @CustomerId;";
+                "SELECT Id, IBAN, Title, Author, Year FROM Books";
 
-            using (var db = Connection)
+            using (var db = new MySqlConnection(ConnectionStringHelper.GetConnectionString()))
             {
                 return db.Query<Book>(sqlCustomerSelect).ToList();
             }

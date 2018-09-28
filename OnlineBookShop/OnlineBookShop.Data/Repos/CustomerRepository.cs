@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Dapper;
+using MySql.Data.MySqlClient;
 using OnlineBookShop.Contracts.Models.Data;
 using OnlineBookShop.Data.Interfaces;
 
@@ -54,7 +54,7 @@ namespace OnlineBookShop.Data.Repos
             string sqlCustomerDelete =
                 "DELETE FROM Customers WHERE Id = @CustomerId;";
 
-            using (var connection = new SqlConnection(ConnectionStringHelper.GetConnectionString("")))
+            using (var connection = new MySqlConnection(ConnectionStringHelper.GetConnectionString()))
             {
                 var rowsAffected =
                     connection.Execute(sqlCustomerDelete, new { id });
@@ -75,7 +75,7 @@ namespace OnlineBookShop.Data.Repos
             var sqlCustomerSelect =
                 "SELECT Id, Name, Surname, Email, Address FROM Customers WHERE Id = @CustomerId;";
 
-            using (var db = new SqlConnection(ConnectionStringHelper.GetConnectionString("")))
+            using (var db = new MySqlConnection(ConnectionStringHelper.GetConnectionString()))
             {
                 return db.Query<Customer>(sqlCustomerSelect, new { id }).SingleOrDefault();
             }
@@ -101,7 +101,7 @@ namespace OnlineBookShop.Data.Repos
             parameter.Add("@Email", details.Email, DbType.String, ParameterDirection.Input);
             parameter.Add("@Address", details.Address, DbType.String, ParameterDirection.Input);
 
-            using (var connection = new SqlConnection(ConnectionStringHelper.GetConnectionString("")))
+            using (var connection = new MySqlConnection(ConnectionStringHelper.GetConnectionString()))
             {
                 connection.Execute(sqlCustomerUpdate, parameter);
 
