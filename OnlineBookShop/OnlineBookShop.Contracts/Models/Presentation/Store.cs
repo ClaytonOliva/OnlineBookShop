@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace OnlineBookShop.Contracts.Models.Presentation
 {
-    class Store
+    public class Store
     {
     }
 }

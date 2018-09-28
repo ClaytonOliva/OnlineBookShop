@@ -1,0 +1,14 @@
+ERROR 2018-09-29 01:44:46,642 123399ms CustomersController    GetDetails         - Error
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at MySql.Data.MySqlClient.MySqlConnection.Abort()
+   at MySql.Data.MySqlClient.MySqlCommand.ExecuteReader(CommandBehavior behavior)
+   at MySql.Data.MySqlClient.MySqlCommand.ExecuteDbDataReader(CommandBehavior behavior)
+   at System.Data.Common.DbCommand.System.Data.IDbCommand.ExecuteReader(CommandBehavior behavior)
+   at Dapper.SqlMapper.ExecuteReaderWithFlagsFallback(IDbCommand cmd, Boolean wasClosed, CommandBehavior behavior)
+   at Dapper.SqlMapper.<QueryImpl>d__138`1.MoveNext()
+   at System.Collections.Generic.List`1..ctor(IEnumerable`1 collection)
+   at System.Linq.Enumerable.ToList[TSource](IEnumerable`1 source)
+   at Dapper.SqlMapper.Query[T](IDbConnection cnn, String sql, Object param, IDbTransaction transaction, Boolean buffered, Nullable`1 commandTimeout, Nullable`1 commandType)
+   at OnlineBookShop.Data.Repos.CustomerRepository.GetCustomer(Int32 id) in C:\ClaytonHub\globalgaming-dotnetchallenge\OnlineBookShop\OnlineBookShop.Data\Repos\CustomerRepository.cs:line 80
+   at OnlineBookShop.Service.Services.CustomerService.ViewCustomerDetails(Int32 id) in C:\ClaytonHub\globalgaming-dotnetchallenge\OnlineBookShop\OnlineBookShop.Service\Services\CustomerService.cs:line 74
+   at OnlineBookShop.Controllers.CustomersController.GetDetails(Int32 id) in C:\ClaytonHub\globalgaming-dotnetchallenge\OnlineBookShop\OnlineBookShop\Controllers\CustomersController.cs:line 50
