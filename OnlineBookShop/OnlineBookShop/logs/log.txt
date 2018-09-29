@@ -12,3 +12,14 @@ System.NullReferenceException: Object reference not set to an instance of an obj
    at OnlineBookShop.Data.Repos.CustomerRepository.GetCustomer(Int32 id) in C:\ClaytonHub\globalgaming-dotnetchallenge\OnlineBookShop\OnlineBookShop.Data\Repos\CustomerRepository.cs:line 80
    at OnlineBookShop.Service.Services.CustomerService.ViewCustomerDetails(Int32 id) in C:\ClaytonHub\globalgaming-dotnetchallenge\OnlineBookShop\OnlineBookShop.Service\Services\CustomerService.cs:line 74
    at OnlineBookShop.Controllers.CustomersController.GetDetails(Int32 id) in C:\ClaytonHub\globalgaming-dotnetchallenge\OnlineBookShop\OnlineBookShop\Controllers\CustomersController.cs:line 50
+ERROR 2018-09-29 21:56:25,831 408974ms CustomersController    Register           - Error
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at Dapper.SqlMapper.<QueryImpl>d__138`1.MoveNext()
+   at System.Collections.Generic.List`1..ctor(IEnumerable`1 collection)
+   at System.Linq.Enumerable.ToList[TSource](IEnumerable`1 source)
+   at Dapper.SqlMapper.Query[T](IDbConnection cnn, String sql, Object param, IDbTransaction transaction, Boolean buffered, Nullable`1 commandTimeout, Nullable`1 commandType)
+   at OnlineBookShop.Data.Repos.CustomerRepository.AddCustomer(Customer details) in C:\ClaytonHub\globalgaming-dotnetchallenge\OnlineBookShop\OnlineBookShop.Data\Repos\CustomerRepository.cs:line 39
+   at OnlineBookShop.Service.Services.CustomerService.RegisterCustomer(Customer details) in C:\ClaytonHub\globalgaming-dotnetchallenge\OnlineBookShop\OnlineBookShop.Service\Services\CustomerService.cs:line 32
+   at OnlineBookShop.Controllers.CustomersController.Register(Customer details) in C:\ClaytonHub\globalgaming-dotnetchallenge\OnlineBookShop\OnlineBookShop\Controllers\CustomersController.cs:line 59
+ERROR 2018-09-29 22:10:08,394 168055ms CustomersController    Register           - Object reference not set to an instance of an object.
+ERROR 2018-09-29 23:09:51,750 29235ms CustomersController    Unregister         - Fatal error encountered during command execution.

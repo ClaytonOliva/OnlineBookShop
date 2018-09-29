@@ -33,8 +33,7 @@ namespace OnlineBookShop.Data.Repos
             parameter.Add("@Email", details.Email, DbType.String, ParameterDirection.Input);
             parameter.Add("@Address", details.Address, DbType.String, ParameterDirection.Input);
 
-            //using (var connection = new SqlConnection(ConnectionStringHelper.GetConnectionString("")))
-            using(var connection = Connection)
+            using(var connection = new MySqlConnection(ConnectionStringHelper.GetConnectionString()))
             {
                 var newInsertedId =
                     connection.Query<int>(sqlCustomerInsert, parameter).Single();
@@ -48,21 +47,19 @@ namespace OnlineBookShop.Data.Repos
         /// </summary>
         /// <param name="id">The Id of the customer to deelte.</param>
         /// <returns>Successful delete or not.</returns>
-        public bool DeleteCustomer(int id)
+        public bool DeleteCustomer(int Id)
         {
             //
             string sqlCustomerDelete =
-                "DELETE FROM Customers WHERE Id = @CustomerId;";
+                "DELETE FROM Customers WHERE Id = @Id;";
 
             using (var connection = new MySqlConnection(ConnectionStringHelper.GetConnectionString()))
             {
                 var rowsAffected =
-                    connection.Execute(sqlCustomerDelete, new { id });
+                    connection.Execute(sqlCustomerDelete, new { Id });
 
                 return rowsAffected > 0;
             }
-
-            throw new NotImplementedException();
         }
 
         /// <summary>
@@ -70,14 +67,14 @@ namespace OnlineBookShop.Data.Repos
         /// </summary>
         /// <param name="id">The ID of the customer to retrieve.</param>
         /// <returns>Customer Data object.</returns>
-        public Customer GetCustomer(int id)
+        public Customer GetCustomer(int Id)
         {
             var sqlCustomerSelect =
-                "SELECT Id, Name, Surname, Email, Address FROM Customers WHERE Id = @CustomerId;";
+                "SELECT Id, Name, Surname, Email, Address FROM Customers WHERE Id = @Id;";
 
             using (var db = new MySqlConnection(ConnectionStringHelper.GetConnectionString()))
             {
-                return db.Query<Customer>(sqlCustomerSelect, new { id }).SingleOrDefault();
+                return db.Query<Customer>(sqlCustomerSelect, new { Id }).SingleOrDefault();
             }
         }
 

@@ -25,17 +25,17 @@ namespace OnlineBookShop.Controllers
         }
 
 
-       [HttpGet]
-       [Route("api/bookstore")]
+        [HttpGet]
+        [Route("api/bookstore")]
         public Response<IEnumerable<Book>> GetAllBooks()
         {
-            var value = new Response<IEnumerable<Book>>() { IsSuccess = false };
+            var value = new Response<IEnumerable<Book>>() {IsSuccess = false};
 
             try
             {
                 value = _bookService.GetBooks();
 
-                if(!value.IsSuccess)
+                if (!value.IsSuccess)
                     log.Error(value.ExceptionMessage);
 
                 return value;
@@ -48,6 +48,53 @@ namespace OnlineBookShop.Controllers
 
             return value;
         }
-        
+
+        [HttpGet]
+        [Route("api/bookstore/transactions/{id:int}")]
+        public Response<IEnumerable<Transaction>> GetPurchaseHistory(int customerId)
+        {
+            var value = new Response<IEnumerable<Transaction>>() { IsSuccess = false };
+
+            try
+            {
+                value = _bookService.GetPurchaseHistory(customerId);
+
+                if (!value.IsSuccess)
+                    log.Error(value.ExceptionMessage);
+
+                return value;
+            }
+            catch (Exception ex)
+            {
+                log.Error("Error", ex);
+                value.ExceptionMessage = ex.Message;
+            }
+
+            return value;
+        }
+
+        [HttpPost]
+        [Route("api/bookstore/transactions")]
+        public Response<Transaction> PurchaseBook(Transaction purchase)
+        {
+            var value = new Response<Transaction>() { IsSuccess = false };
+
+            try
+            {
+                value = _bookService.PurchaseBook(purchase);
+
+                if (!value.IsSuccess)
+                    log.Error(value.ExceptionMessage);
+
+                return value;
+            }
+            catch (Exception ex)
+            {
+                log.Error("Error", ex);
+                value.ExceptionMessage = ex.Message;
+            }
+
+            return value;
+        }
     }
 }

@@ -21,57 +21,92 @@ namespace OnlineBookShop.Service.Services
 
         public Response<Customer> RegisterCustomer(Customer details)
         {
+            var returnValue = new Response<Customer>();
+
             try
             {
-                _customerRepo.AddCustomer(new Contracts.Models.Data.Customer());
-                return new Response<Customer>();
+                // Get customer data object.
+                var customer = 
+                    _customerRepo.AddCustomer(new Contracts.Models.Data.Customer(){ Name = details.Name, Surname = details.Surname, Email = details.Email, Address = details.Address});
+
+                // Update ID
+                details.Id = customer.Id;
+
+                returnValue.IsSuccess = true;
+                returnValue.Data = details;
+
+                return returnValue;
             }
             catch (Exception e)
             {
-                Console.WriteLine(e);
-                throw;
+                returnValue.IsSuccess = false;
+                returnValue.ExceptionMessage = e.Message;
+                return returnValue;
             }
         }
 
         public Response<Customer> UnregisterCustomer(int id)
         {
+            var returnValue = new Response<Customer>();
+
             try
             {
-                _customerRepo.DeleteCustomer(id);
-                return new Response<Customer>();
+                var isDeleted = _customerRepo.DeleteCustomer(id);
+                returnValue.IsSuccess = isDeleted;
+
+                return returnValue;
             }
             catch (Exception e)
             {
-                Console.WriteLine(e);
-                throw;
+                returnValue.IsSuccess = false;
+                returnValue.ExceptionMessage = e.Message;
+                return returnValue;
             }
         }
 
         public Response<Customer> UpdateCustomerDetails(Customer details)
         {
+            var returnValue = new Response<Customer>();
+
             try
             {
-                _customerRepo.UpdateCustomer(new Contracts.Models.Data.Customer());
-                return new Response<Customer>();
+                var customer = _customerRepo.UpdateCustomer(new Contracts.Models.Data.Customer() { Id = details.Id, Name = details.Name, Surname = details.Surname, Email = details.Email, Address = details.Address });
+
+                returnValue.IsSuccess = true;
+                returnValue.Data = new Customer() { Id = customer.Id, Name = customer.Name, Surname = customer.Surname, Email = customer.Email, Address = customer.Address };
+
+                return returnValue;
             }
             catch (Exception e)
             {
-                Console.WriteLine(e);
-                throw;
+                returnValue.IsSuccess = false;
+                returnValue.ExceptionMessage = e.Message;
+                return returnValue;
             }
         }
 
         public Response<Customer> ViewCustomerDetails(int id)
         {
+
+            var returnValue = new Response<Customer>();
+
             try
             {
-                _customerRepo.GetCustomer(id);
-                return new Response<Customer>();
+                // Get from customer Data object.
+                var customer =
+                    _customerRepo.GetCustomer(id);
+
+                // Map to customer presentation object.
+                returnValue.IsSuccess = true;
+                returnValue.Data = new Customer(){Id= customer.Id, Name = customer.Name, Surname = customer.Surname, Email = customer.Email, Address = customer.Address };
+
+                return returnValue;
             }
             catch (Exception e)
             {
-                Console.WriteLine(e);
-                throw;
+                returnValue.IsSuccess = false;
+                returnValue.ExceptionMessage = e.Message;
+                return returnValue;
             }
         }
     }

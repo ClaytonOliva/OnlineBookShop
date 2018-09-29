@@ -24,88 +24,100 @@ namespace OnlineBookShop.Controllers
             _bookService = bookService;
         }
 
-        // GET api/values
-        //[HttpGet]
-        //[Route("api/customers")]
-        //public IEnumerable<string> Get()
-        //{
-        //    try
-        //    {
-        //        _bookService.GetBooks();
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        log.Error("Error",ex);
-        //    }
-
-        //    return new string[] { "value1", "value2" };
-        //}
-
         [HttpGet]
         [Route("api/customers/{id:int}")]
         public Response<Customer> GetDetails(int id)
         {
+            var value = new Response<Customer>() { IsSuccess = false };
+
             try
             {
-                var value = new Response<Customer>();
-                value.Data = new Customer(){Id = 1, Name = "Clayton", Surname = "Oliva", Email = "clayton.oliva@gmail.com", Address = "Home"};
-                value.IsSuccess = true;
+                value = _customerService.ViewCustomerDetails(id);
+
+                if (!value.IsSuccess)
+                    log.Error(value.ExceptionMessage);
 
                 return value;
-
-                //return _customerService.ViewCustomerDetails(id);
             }
             catch (Exception ex)
             {
                 log.Error("Error", ex);
-                return new Response<Customer>();
+                value.ExceptionMessage = ex.Message;
             }
+
+            return value;
         }
 
         [HttpPost]
-        [Route("api/customers/{id:int}")]
-        public Response<Customer> Unregister(int id)
+        [Route("api/customers")]
+        public Response<Customer> Register(Customer details)
         {
+            var value = new Response<Customer>() { IsSuccess = false };
+
             try
             {
-                return _customerService.UnregisterCustomer(id);
+                value = _customerService.RegisterCustomer(details);
+
+                if (!value.IsSuccess)
+                    log.Error(value.ExceptionMessage);
+
+                return value;
             }
             catch (Exception ex)
             {
                 log.Error("Error", ex);
-                return new Response<Customer>();
+                value.ExceptionMessage = ex.Message;
             }
+
+            return value;
         }
 
-        // PUT api/values/5
         [HttpPut]
-        [Route("api/customers/{id:int}")]
-        public Response<Customer> UpdateDetails(int id, Customer customer)
+        [Route("api/customers")]
+        public Response<Customer> UpdateDetails(Customer customer)
         {
+            var value = new Response<Customer>() { IsSuccess = false };
+
             try
             {
-                return _customerService.UpdateCustomerDetails(customer);
+                value = _customerService.UpdateCustomerDetails(customer);
+
+                if (!value.IsSuccess)
+                    log.Error(value.ExceptionMessage);
+
+                return value;
             }
             catch (Exception ex)
             {
                 log.Error("Error", ex);
-                return new Response<Customer>();
+                value.ExceptionMessage = ex.Message;
             }
+
+            return value;
         }
 
-        // DELETE api/values/5
         [HttpDelete]
         [Route("customers/{id:int}")]
-        public void DeleteCustomer(int id)
+        public Response<Customer> Unregister(int id)
         {
+            var value = new Response<Customer>() { IsSuccess = false };
+
             try
             {
-                 _customerService.UnregisterCustomer(id);
+                value = _customerService.UnregisterCustomer(id);
+
+                if (!value.IsSuccess)
+                    log.Error(value.ExceptionMessage);
+
+                return value;
             }
             catch (Exception ex)
             {
                 log.Error("Error", ex);
+                value.ExceptionMessage = ex.Message;
             }
+
+            return value;
         }
     }
 }
