@@ -21,20 +21,30 @@ namespace OnlineBookShop.Service.Services
 
         public Response<IEnumerable<Book>> GetBooks()
         {
+            var returnValue = new Response<IEnumerable<Book>>();
+
             try
             {
-                _bookStoreRepo.GetBooks();
-                return new Response<IEnumerable<Book>>();
+                var books = _bookStoreRepo.GetBooks();
+
+                returnValue.IsSuccess = true;
+                returnValue.Data = 
+                    books.Select(b => new Book() {Id = b.Id, ISBN = b.ISBN, Title = b.Title, Author = b.Author, Year = b.Year});
+
+                return returnValue;
             }
             catch (Exception e)
             {
-                Console.WriteLine(e);
-                throw;
+                returnValue.IsSuccess = false;
+                returnValue.ExceptionMessage = e.Message;
+                return returnValue;
             }
         }
 
         public Response<IEnumerable<Transaction>> GetPurchaseHistory(int customerId)
         {
+            var returnValue = new Response<IEnumerable<Transaction>>();
+
             try
             {
                 _bookStoreRepo.GetPurchaseHistory(customerId);
@@ -42,8 +52,9 @@ namespace OnlineBookShop.Service.Services
             }
             catch (Exception e)
             {
-                Console.WriteLine(e);
-                throw;
+                returnValue.IsSuccess = false;
+                returnValue.ExceptionMessage = e.Message;
+                return returnValue;
             }
         }
 

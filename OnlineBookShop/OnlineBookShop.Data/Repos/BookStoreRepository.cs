@@ -21,7 +21,7 @@ namespace OnlineBookShop.Data.Repos
         public IEnumerable<Book> GetBooks()
         {
             var sqlCustomerSelect =
-                "SELECT Id, IBAN, Title, Author, Year FROM Books";
+                "SELECT Id, ISBN, Title, Author, Year FROM Books";
 
             using (var db = new MySqlConnection(ConnectionStringHelper.GetConnectionString()))
             {

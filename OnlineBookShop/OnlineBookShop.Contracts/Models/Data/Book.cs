@@ -17,9 +17,9 @@ namespace OnlineBookShop.Contracts.Models.Data
         public int Id { get; set; }
 
         /// <summary>
-        /// IBAN of the book.
+        /// ISBN of the book.
         /// </summary>
-        public string IBAN { get; set; }
+        public string ISBN { get; set; }
 
         /// <summary>
         /// Title of the book.
