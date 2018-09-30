@@ -13,14 +13,12 @@ namespace OnlineBookShop.Controllers
 {
     public class BookStoreController : ApiController
     {
-        private readonly ICustomerService _customerService;
         private readonly IBookStoreService _bookService;
         private static ILog Log { get; set; }
         private ILog log = LogManager.GetLogger(typeof(BookStoreController));
 
-        public BookStoreController(ICustomerService customerService, IBookStoreService bookService)
+        public BookStoreController(IBookStoreService bookService)
         {
-            _customerService = customerService;
             _bookService = bookService;
         }
 
