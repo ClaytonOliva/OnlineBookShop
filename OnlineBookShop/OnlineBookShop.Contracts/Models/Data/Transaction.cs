@@ -17,18 +17,13 @@ namespace OnlineBookShop.Contracts.Models.Data
         public int Id { get; set; }
 
         /// <summary>
-        /// The customer ID of the 
+        /// The customer Id of the customer.
         /// </summary>
-        public Customer Customer { get; set; }
+        public int CustomerId { get; set; }
 
         /// <summary>
-        /// 
+        /// The Book Id of the customer.
         /// </summary>
-        public Book Book { get; set; }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public DateTime PurchaseDate { get; set; }
+        public int BookId { get; set; }
     }
 }

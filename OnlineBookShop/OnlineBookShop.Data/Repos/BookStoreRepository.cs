@@ -39,9 +39,9 @@ namespace OnlineBookShop.Data.Repos
             var sqlCustomerSelect =
                 "SELECT * FROM Transactions WHERE Id = @transactionId;";
 
-            using (var db = Connection)
+            using (var db = new MySqlConnection(ConnectionStringHelper.GetConnectionString()))
             {
-                return db.Query<Transaction>(sqlCustomerSelect,new {transactionId}).SingleOrDefault();
+                return db.Query<Transaction>(sqlCustomerSelect, new { transactionId }).SingleOrDefault();
             }
         }
 
@@ -49,15 +49,17 @@ namespace OnlineBookShop.Data.Repos
         /// Gets all purchase history by customer ID.
         /// </summary>
         /// <param name="customerId">ID of the customer to retrieve data of.</param>
-        /// <returns>List of transactions.</returns>
-        public IEnumerable<Transaction> GetPurchaseHistory(int customerId)
+        /// <returns>List of purchases.</returns>
+        public IEnumerable<Purchase> GetPurchaseHistory(int customerId)
         {
             var sqlCustomerSelect =
-                "SELECT * FROM Transactions WHERE CustomerId = @CustomerId;";
+                "SELECT T.Id, (C.Name + ' ' + C.Surname) As Customer, B.Title As Book FROM onlineshop.transactions AS T "+
+                "INNER JOIN onlineshop.customers AS C ON T.CustomerId = C.Id " +
+                "INNER JOIN onlineshop.books AS B ON T.BookId = B.Id WHERE CustomerId = @CustomerId;";
 
-            using (var db = Connection)
+            using (var db = new MySqlConnection(ConnectionStringHelper.GetConnectionString()))
             {
-                return db.Query<Transaction>(sqlCustomerSelect, new {customerId}).ToList();
+                return db.Query<Purchase>(sqlCustomerSelect, new {customerId}).ToList();
             }
         }
 
@@ -76,11 +78,10 @@ namespace OnlineBookShop.Data.Repos
             // Add the parameters to use in the insert query
             DynamicParameters parameter = new DynamicParameters();
 
-            parameter.Add("@BookId", details.Book.Id, DbType.Int32, ParameterDirection.Input);
-            parameter.Add("@CustomerId", details.Customer.Id, DbType.Int32, ParameterDirection.Input);
+            parameter.Add("@BookId", details.BookId, DbType.Int32, ParameterDirection.Input);
+            parameter.Add("@CustomerId", details.CustomerId, DbType.Int32, ParameterDirection.Input);
 
-            //using (var connection = new SqlConnection(ConnectionStringHelper.GetConnectionString("")))
-            using (var connection = Connection)
+            using (var connection = new MySqlConnection(ConnectionStringHelper.GetConnectionString()))
             {
                 var newInsertedId =
                     connection.Query<int>(sqlTransactionInsert, parameter).Single();

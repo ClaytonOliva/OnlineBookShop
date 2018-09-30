@@ -4,12 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OnlineBookShop.Contracts.Models.Presentation
+namespace OnlineBookShop.Contracts.Models.Data
 {
     /// <summary>
-    /// Presentation container for a Transaction.
+    /// Presentation container for a purchase.
     /// </summary>
-    public class Transaction
+    public class Purchase
     {
         /// <summary>
         /// Primary identifier of the Transaction.
@@ -17,13 +17,16 @@ namespace OnlineBookShop.Contracts.Models.Presentation
         public int Id { get; set; }
 
         /// <summary>
-        /// The ID of the customer doing the purchase. 
+        /// The customer Id of the customer.
         /// </summary>
-        public int CustomerId { get; set; }
+        public string Customer { get; set; }
 
         /// <summary>
-        /// The ID of the book being purchased.
+        /// The Book Id of the customer.
         /// </summary>
-        public int BookId { get; set; }
+        public string Book { get; set; }
+
+        
+
     }
 }

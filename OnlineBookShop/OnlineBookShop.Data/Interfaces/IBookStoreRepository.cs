@@ -11,7 +11,7 @@ namespace OnlineBookShop.Data.Interfaces
     {
         IEnumerable<Book> GetBooks();
         Transaction PurchaseBook(Transaction details);
-        IEnumerable<Transaction> GetPurchaseHistory(int customerId);
+        IEnumerable<Purchase> GetPurchaseHistory(int customerId);
         Transaction GetTransaction(int transactionId);
     }
 }

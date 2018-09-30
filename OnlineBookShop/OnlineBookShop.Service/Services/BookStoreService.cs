@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.Ajax.Utilities;
 using OnlineBookShop.Contracts.Models;
 using OnlineBookShop.Contracts.Models.Presentation;
 using OnlineBookShop.Data.Interfaces;
@@ -13,10 +14,12 @@ namespace OnlineBookShop.Service.Services
     public class BookStoreService : IBookStoreService
     {
         private readonly IBookStoreRepository _bookStoreRepo;
+        private readonly ICustomerRepository _customerRepo;
 
-        public BookStoreService(IBookStoreRepository bookStoreRepo)
+        public BookStoreService(IBookStoreRepository bookStoreRepo, ICustomerRepository customerRepo)
         {
             _bookStoreRepo = bookStoreRepo;
+            _customerRepo = customerRepo;
         }
 
         public Response<IEnumerable<Book>> GetBooks()
@@ -47,8 +50,9 @@ namespace OnlineBookShop.Service.Services
 
             try
             {
-                _bookStoreRepo.GetPurchaseHistory(customerId);
-                return new Response<IEnumerable<Transaction>>();
+                var transactions = _bookStoreRepo.GetPurchaseHistory(customerId);
+                return returnValue;
+
             }
             catch (Exception e)
             {
@@ -60,15 +64,20 @@ namespace OnlineBookShop.Service.Services
 
         public Response<Transaction> PurchaseBook(Transaction details)
         {
+            var returnValue = new Response<Transaction>();
+
             try
             {
-                _bookStoreRepo.PurchaseBook(new Contracts.Models.Data.Transaction());
-                return new Response<Transaction>();
+                _bookStoreRepo.PurchaseBook(new Contracts.Models.Data.Transaction(){ BookId = details.BookId, CustomerId = details.CustomerId});
+                returnValue.IsSuccess = true;
+                returnValue.Data = null;
+                return returnValue;
             }
             catch (Exception e)
             {
-                Console.WriteLine(e);
-                throw;
+                returnValue.IsSuccess = false;
+                returnValue.ExceptionMessage = e.Message;
+                return returnValue;
             }
         }
     }
