@@ -1,0 +1,33 @@
+CREATE SCHEMA `onlineshop` ;
+
+CREATE TABLE `onlineshop`.`books` (
+  `Id` INT NOT NULL AUTO_INCREMENT,
+  `ISBN` VARCHAR(50) NOT NULL,
+  `Title` NVARCHAR(50) NOT NULL,
+  `Author` NVARCHAR(45) NOT NULL,
+  `Year` YEAR NULL,
+  PRIMARY KEY (`Id`))
+COMMENT = 'Table to store books.';
+
+
+CREATE TABLE `onlineshop`.`customers` (
+  `Id` INT NOT NULL AUTO_INCREMENT,
+  `Name` NVARCHAR(50) NOT NULL,
+  `Surname` NVARCHAR(50) NOT NULL,
+  `Email` NVARCHAR(255) NULL,
+  `Address` NVARCHAR(255) NULL,
+  PRIMARY KEY (`Id`))
+COMMENT = 'Table to store customers.';
+
+
+CREATE TABLE `onlineshop`.`transactions` (
+  `Id` INT NOT NULL AUTO_INCREMENT,
+  `CustomerId` INT NULL,
+  `TransactionId` INT NULL,
+  PRIMARY KEY (`Id`))
+COMMENT = 'Table to store customer transactions.';
+
+INSERT INTO `onlineshop`.`books` (ISBN, Title, Author, Year)
+VALUES('9789655171990','The Lord of the Rings','J. R. R. Tolkien',1954);
+INSERT INTO `onlineshop`.`books` (ISBN, Title, Author, Year)
+VALUES('9789753102001','Le Petit Prince (The Little Prince)','Antoine de Saint-Exupéry',1943)
