@@ -14,12 +14,10 @@ namespace OnlineBookShop.Service.Services
     public class BookStoreService : IBookStoreService
     {
         private readonly IBookStoreRepository _bookStoreRepo;
-        private readonly ICustomerRepository _customerRepo;
 
-        public BookStoreService(IBookStoreRepository bookStoreRepo, ICustomerRepository customerRepo)
+        public BookStoreService(IBookStoreRepository bookStoreRepo)
         {
             _bookStoreRepo = bookStoreRepo;
-            _customerRepo = customerRepo;
         }
 
         public Response<IEnumerable<Book>> GetBooks()
@@ -30,6 +28,7 @@ namespace OnlineBookShop.Service.Services
             {
                 var books = _bookStoreRepo.GetBooks();
 
+                //  Map data objects to presentation object.
                 returnValue.IsSuccess = true;
                 returnValue.Data = 
                     books.Select(b => new Book() {Id = b.Id, ISBN = b.ISBN, Title = b.Title, Author = b.Author, Year = b.Year});
@@ -44,13 +43,19 @@ namespace OnlineBookShop.Service.Services
             }
         }
 
-        public Response<IEnumerable<Transaction>> GetPurchaseHistory(int customerId)
+        public Response<IEnumerable<Purchase>> GetPurchaseHistory(int customerId)
         {
-            var returnValue = new Response<IEnumerable<Transaction>>();
+            var returnValue = new Response<IEnumerable<Purchase>>();
 
             try
             {
-                var transactions = _bookStoreRepo.GetPurchaseHistory(customerId);
+                var purchases = _bookStoreRepo.GetPurchaseHistory(customerId);
+
+                // Map data object to presentation object.
+                returnValue.IsSuccess = true;
+                returnValue.Data =
+                    purchases.Select(p => new Purchase() { Id = p.Id, Customer = p.Customer, Book = p.Book});
+
                 return returnValue;
 
             }
@@ -70,7 +75,7 @@ namespace OnlineBookShop.Service.Services
             {
                 _bookStoreRepo.PurchaseBook(new Contracts.Models.Data.Transaction(){ BookId = details.BookId, CustomerId = details.CustomerId});
                 returnValue.IsSuccess = true;
-                returnValue.Data = null;
+                returnValue.Data = null; // No need to return data.
                 return returnValue;
             }
             catch (Exception e)

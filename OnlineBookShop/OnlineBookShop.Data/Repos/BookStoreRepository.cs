@@ -53,7 +53,7 @@ namespace OnlineBookShop.Data.Repos
         public IEnumerable<Purchase> GetPurchaseHistory(int customerId)
         {
             var sqlCustomerSelect =
-                "SELECT T.Id, (C.Name + ' ' + C.Surname) As Customer, B.Title As Book FROM onlineshop.transactions AS T "+
+                "SELECT T.Id, CONCAT(C.Name,' ', C.Surname) As Customer, B.Title As Book FROM onlineshop.transactions AS T " +
                 "INNER JOIN onlineshop.customers AS C ON T.CustomerId = C.Id " +
                 "INNER JOIN onlineshop.books AS B ON T.BookId = B.Id WHERE CustomerId = @CustomerId;";
 

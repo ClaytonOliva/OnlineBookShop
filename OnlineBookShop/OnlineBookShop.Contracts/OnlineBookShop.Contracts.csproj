@@ -49,6 +49,7 @@
     <Compile Include="Models\Presentation\Book.cs" />
     <Compile Include="Models\Presentation\Customer.cs" />
     <Compile Include="Models\Data\Purchase.cs" />
+    <Compile Include="Models\Presentation\Purchase.cs" />
     <Compile Include="Models\Presentation\Transaction.cs" />
     <Compile Include="Models\Response.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

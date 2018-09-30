@@ -50,10 +50,10 @@ namespace OnlineBookShop.Controllers
         }
 
         [HttpGet]
-        [Route("api/bookstore/transactions/{id:int}")]
-        public Response<IEnumerable<Transaction>> GetPurchaseHistory(int customerId)
+        [Route("api/bookstore/transactions/{customerId:int}")]
+        public Response<IEnumerable<Purchase>> GetPurchaseHistory(int customerId)
         {
-            var value = new Response<IEnumerable<Transaction>>() { IsSuccess = false };
+            var value = new Response<IEnumerable<Purchase>>() { IsSuccess = false };
 
             try
             {
@@ -75,13 +75,13 @@ namespace OnlineBookShop.Controllers
 
         [HttpPost]
         [Route("api/bookstore/transactions")]
-        public Response<Transaction> PurchaseBook(Transaction purchase)
+        public Response<Transaction> PurchaseBook(Transaction transaction)
         {
             var value = new Response<Transaction>() { IsSuccess = false };
 
             try
             {
-                value = _bookService.PurchaseBook(purchase);
+                value = _bookService.PurchaseBook(transaction);
 
                 if (!value.IsSuccess)
                     log.Error(value.ExceptionMessage);
